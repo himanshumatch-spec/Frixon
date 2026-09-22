@@ -32,14 +32,16 @@ jobs:
           gradle-version: "8.9"
       - name: Build player release APK
         run: gradle assemblePlayerRelease --stacktrace
-      - name: Verify APK
+      - name: Locate and verify APK
         run: |
-          test -f app/build/outputs/apk/player/release/app-player-release.apk
-          ls -lh app/build/outputs/apk/player/release/app-player-release.apk
+          APK="$(find app/build/outputs/apk -type f -name '*.apk' | head -n 1)"
+          test -n "$APK"
+          echo "APK_PATH=$APK" >> "$GITHUB_ENV"
+          ls -lh "$APK"
       - name: Upload standalone APK
         uses: actions/upload-artifact@v4
         with:
           name: ff-arena-player-apk
-          path: app/build/outputs/apk/player/release/app-player-release.apk
+          path: ${{ env.APK_PATH }}
           if-no-files-found: error
           retention-days: 14
