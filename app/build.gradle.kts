@@ -23,12 +23,14 @@ android {
             applicationIdSuffix = ".player"
             versionNameSuffix = "-player"
             resValue("string", "app_name", "FF Arena")
+            resValue("string", "start_path", "/")
         }
         create("admin") {
             dimension = "app"
             applicationIdSuffix = ".admin"
             versionNameSuffix = "-admin"
             resValue("string", "app_name", "FF Arena Admin")
+            resValue("string", "start_path", "/admin")
         }
     }
 
