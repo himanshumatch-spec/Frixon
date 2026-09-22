@@ -3,11 +3,9 @@ package com.ffarena.tournaments
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
-import android.view.View
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.Toast
 
 class MainActivity : Activity() {
     private lateinit var webView: WebView
@@ -35,7 +33,8 @@ class MainActivity : Activity() {
         }
 
         setContentView(webView)
-        webView.loadUrl("https://$appHost/")
+        val startPath = if (BuildConfig.FLAVOR == "admin") "/admin" else "/"
+        webView.loadUrl("https://$appHost$startPath")
     }
 
     override fun onBackPressed() {
