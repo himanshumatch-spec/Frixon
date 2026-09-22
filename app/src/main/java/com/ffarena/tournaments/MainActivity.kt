@@ -33,7 +33,7 @@ class MainActivity : Activity() {
         }
 
         setContentView(webView)
-        val startPath = if (BuildConfig.FLAVOR == "admin") "/admin" else "/"
+        val startPath = getString(com.ffarena.tournaments.R.string.start_path)
         webView.loadUrl("https://$appHost$startPath")
     }
 
