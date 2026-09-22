@@ -15,6 +15,23 @@ android {
         versionName = "1.0"
     }
 
+    flavorDimensions += "app"
+
+    productFlavors {
+        create("player") {
+            dimension = "app"
+            applicationIdSuffix = ".player"
+            versionNameSuffix = "-player"
+            resValue("string", "app_name", "FF Arena")
+        }
+        create("admin") {
+            dimension = "app"
+            applicationIdSuffix = ".admin"
+            versionNameSuffix = "-admin"
+            resValue("string", "app_name", "FF Arena Admin")
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
