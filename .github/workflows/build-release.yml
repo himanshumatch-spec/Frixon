@@ -1,4 +1,4 @@
-name: Build FF Arena Release
+name: Build FF Arena APK
 
 on:
   workflow_dispatch:
@@ -30,14 +30,16 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.9"
-      - name: Build player release APK and AAB
-        run: gradle assemblePlayerRelease bundlePlayerRelease --stacktrace
-      - name: Upload release artifacts
+      - name: Build player release APK
+        run: gradle assemblePlayerRelease --stacktrace
+      - name: Verify APK
+        run: |
+          test -f app/build/outputs/apk/player/release/app-player-release.apk
+          ls -lh app/build/outputs/apk/player/release/app-player-release.apk
+      - name: Upload standalone APK
         uses: actions/upload-artifact@v4
         with:
-          name: ff-arena-release
-          path: |
-            app/build/outputs/apk/player/release/app-player-release.apk
-            app/build/outputs/bundle/playerRelease/app-player-release.aab
+          name: ff-arena-player-apk
+          path: app/build/outputs/apk/player/release/app-player-release.apk
           if-no-files-found: error
           retention-days: 14
